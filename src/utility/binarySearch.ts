@@ -10,22 +10,21 @@ const binarySearch = async (searchTerm: string, sizes: DictionarySizes) => {
     while (min <= max) {
         const mid = Math.floor((min + max) / 2);
         const dictionaryData = await getEntryAt(mid);
-        console.log(`binarySearch: comparing ${dictionaryData.inflected} with ${searchTerm} at index: ${mid}`);
-
         const compareResult = comparator(dictionaryData, searchTerm);
-        console.log(`binarySearch: compareResult = ${compareResult}`);
 
         if (compareResult === 0) {
             const totalTime = Date.now() - startTime;
             return { index: mid, iterations, totalTime };
+
         } else if (compareResult < 0) {
             min = mid + 1;
+
         } else {
+            
             max = mid - 1;
         }
 
         iterations++;
-        console.log(`binarySearch: new range min: ${min}, max: ${max}`);
     }
 
     const totalTime = Date.now() - startTime;
